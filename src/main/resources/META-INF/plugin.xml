@@ -1,0 +1,30 @@
+<idea-plugin>
+    <id>rip.deadcode.intellij-jp2en-dict-plugin</id>
+    <name>Plugin display name here</name>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+
+    <description><![CDATA[
+    Enter short description for your plugin here.<br>
+    <em>most HTML tags may be used</em>
+    ]]></description>
+
+    <change-notes><![CDATA[
+    ]]></change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <group id="Jp2En" text="Jp2En Actions" description="Jp2En Actions">
+            <add-to-group group-id="MainMenu" anchor="last"/>
+            <action id="Jp2En.CompletionRequest" class="rip.deadcode.Jp2EnAction" text="Jp2En" description="Translates Japanese word"/>
+        </group>
+    </actions>
+</idea-plugin>
