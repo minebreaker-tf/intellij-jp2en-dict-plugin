@@ -22,9 +22,9 @@
     </extensions>
 
     <actions>
-        <group id="Jp2En" text="Jp2En Actions" description="Jp2En Actions">
+        <group id="Jp2En" text="Jp2En" description="Jp2En Actions">
             <add-to-group group-id="MainMenu" anchor="last"/>
-            <action id="Jp2En.CompletionRequest" class="rip.deadcode.Jp2EnAction" text="Jp2En" description="Translates Japanese word"/>
+            <action id="Jp2En.CompletionRequest" class="rip.deadcode.intellij.jp2en.Jp2EnAction" text="Jp2En" description="Translates Japanese word"/>
         </group>
     </actions>
 </idea-plugin>
