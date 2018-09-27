@@ -1,29 +1,20 @@
 <idea-plugin>
     <id>rip.deadcode.intellij-jp2en-dict-plugin</id>
-    <name>Plugin display name here</name>
-    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+    <name>Japanese2English Dictionary Plugin</name>
+    <vendor email="" url=""></vendor>
 
     <description><![CDATA[
-    Enter short description for your plugin here.<br>
-    <em>most HTML tags may be used</em>
+    Translates Japanese to English
     ]]></description>
 
     <change-notes><![CDATA[
     ]]></change-notes>
 
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
-    <!-- uncomment to enable plugin in all products
-    <depends>com.intellij.modules.lang</depends>
-    -->
-
-    <extensions defaultExtensionNs="com.intellij">
-        <!-- Add your extensions here -->
-    </extensions>
+    <depends>com.intellij.modules.platform</depends>
 
     <actions>
         <action id="Jp2En.CompletionRequest" class="rip.deadcode.intellij.jp2en.Jp2EnAction" text="Jp2En" description="Translates Japanese word">
-            <keyboard-shortcut first-keystroke="control shift T" keymap="$default"/>
+            <keyboard-shortcut first-keystroke="control shift Q" keymap="$default"/>
         </action>
     </actions>
 </idea-plugin>

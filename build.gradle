@@ -42,6 +42,12 @@ test {
     useJUnitPlatform()
 }
 
+jar {
+    // Fat Jar
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+}
+
 compileKotlin {
     kotlinOptions.jvmTarget = "1.8"
 }
