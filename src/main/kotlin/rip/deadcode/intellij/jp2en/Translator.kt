@@ -7,8 +7,8 @@ import com.google.api.client.http.javanet.NetHttpTransport
 object Translator {
 
     // Thanks for https://www.est.co.jp/dev/dict/REST
-    internal const val listUrl = "http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite"
-    internal const val itemUrl = "http://public.dejizo.jp/NetDicV09.asmx/GetDicItemLite"
+    const val listUrl = "http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite"
+    const val itemUrl = "http://public.dejizo.jp/NetDicV09.asmx/GetDicItemLite"
 
     val defaultHttpTransport = NetHttpTransport()
 
@@ -49,7 +49,7 @@ object Translator {
     // Use regex because XMLObjectParser fails to parse xml response returned
 
     private val regList = Regex("<ItemID>(.*)</ItemID>")
-    internal fun extractId(response: String): String? {
+    fun extractId(response: String): String? {
         val result = regList.find(response.removeLinebreak())
         return if (result != null && result.groupValues.size >= 2) {
             result.groupValues[1].trim()
@@ -59,7 +59,7 @@ object Translator {
     }
 
     private val regItem = Regex("<Body>(.*)</Body>")
-    internal fun extractItem(response: String): String? {
+    fun extractItem(response: String): String? {
         val result = regItem.find(response.removeLinebreak())
         return if (result != null && result.groupValues.size >= 2) {
             result.groupValues[1].trim()
@@ -70,8 +70,8 @@ object Translator {
 
     private val regOpenTag = Regex("<(?!/).+?>")
     private val regClosingTag = Regex("</.+?>")
-    internal fun removeTags(html: String): String =
+    fun removeTags(html: String): String =
             regClosingTag.replace(regOpenTag.replace(html, ""), "\n")
 
-    internal fun String.removeLinebreak() = this.replace("\r", "").replace("\n", "").trim()
+    fun String.removeLinebreak() = this.replace("\r", "").replace("\n", "").trim()
 }
