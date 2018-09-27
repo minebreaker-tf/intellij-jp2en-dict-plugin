@@ -6,6 +6,7 @@ import com.google.api.client.http.javanet.NetHttpTransport
 
 object Translator {
 
+    // Thanks for https://www.est.co.jp/dev/dict/REST
     internal const val listUrl = "http://public.dejizo.jp/NetDicV09.asmx/SearchDicItemLite"
     internal const val itemUrl = "http://public.dejizo.jp/NetDicV09.asmx/GetDicItemLite"
 
@@ -41,7 +42,8 @@ object Translator {
                 })
                 .execute()
                 .parseAsString()
-        return extractItem(itemResult)
+        val result = extractItem(itemResult) ?: return null
+        return removeTags(result).lines().asSequence().filter { it.isNotBlank() }.map { it.trim() }.joinToString("\n")
     }
 
     // Use regex because XMLObjectParser fails to parse xml response returned
@@ -65,6 +67,11 @@ object Translator {
             null
         }
     }
+
+    private val regOpenTag = Regex("<(?!/).+?>")
+    private val regClosingTag = Regex("</.+?>")
+    internal fun removeTags(html: String): String =
+            regClosingTag.replace(regOpenTag.replace(html, ""), "\n")
 
     internal fun String.removeLinebreak() = this.replace("\r", "").replace("\n", "").trim()
 }
