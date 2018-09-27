@@ -14,7 +14,7 @@ import javax.swing.JTextArea
 import javax.swing.border.EmptyBorder
 import javax.swing.border.LineBorder
 
-class Jp2EnComponent : JComponent() {
+class Jp2EnComponent(defaultText: String?) : JComponent() {
 
     internal val input = JBTextField()
     internal var hideHandler: () -> Unit = {}
@@ -27,8 +27,7 @@ class Jp2EnComponent : JComponent() {
             override fun keyPressed(e: KeyEvent) {
                 when (e.keyCode) {
                     KeyEvent.VK_ENTER -> {
-                        val result = translate(input.text)
-                        resultView.text = result
+                        resultView.text = translate(input.text)
                     }
                     KeyEvent.VK_ESCAPE -> {
                         hideHandler()
@@ -55,6 +54,10 @@ class Jp2EnComponent : JComponent() {
 
         this.add(input, BorderLayout.NORTH)
         this.add(JBScrollPane(resultView), BorderLayout.CENTER)
+
+        if (defaultText != null) {
+            resultView.text = translate(input.text)
+        }
     }
 
     private fun translate(word: String): String {

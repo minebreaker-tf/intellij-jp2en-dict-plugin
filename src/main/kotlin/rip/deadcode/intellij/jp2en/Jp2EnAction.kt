@@ -14,7 +14,7 @@ class Jp2EnAction : AnAction("Hello") {
         val editor = FileEditorManager.getInstance(e.project!!).selectedTextEditor!!
         val cursorPos = editor.visualPositionToXY(editor.caretModel.visualPosition)
 
-        val component = Jp2EnComponent()
+        val component = Jp2EnComponent(editor.selectionModel.selectedText)
         val popup = JBPopupFactory.getInstance()
                 .createComponentPopupBuilder(component, component.input)
                 .setModalContext(false)
