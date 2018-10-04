@@ -15,7 +15,6 @@ import rip.deadcode.intellij.jp2en.Translator.extractItem
 import rip.deadcode.intellij.jp2en.Translator.itemUrl
 import rip.deadcode.intellij.jp2en.Translator.listUrl
 import rip.deadcode.intellij.jp2en.Translator.removeLinebreak
-import rip.deadcode.intellij.jp2en.Translator.removeTags
 import rip.deadcode.intellij.jp2en.Translator.translate
 
 internal class TranslatorTest {
@@ -42,7 +41,7 @@ internal class TranslatorTest {
                 else -> fail("")
             }
         }, "株")
-        assertThat(result).isEqualTo(expectedTranslation)
+        assertThat(result).isEqualTo(expectedItem.removeLinebreak())
     }
 
     @Test
@@ -54,14 +53,7 @@ internal class TranslatorTest {
     @Test
     fun testExtractItem() {
         val result = extractItem(paramItem)
-        assertThat(result).isEqualTo(expectedItem)
-    }
-
-    @Test
-    fun testRemoveTags() {
-        val param = "<div class=\"foo\">bar</div>"
-        val result = removeTags(param)
-        assertThat(result).isEqualTo("bar\n")
+        assertThat(result).isEqualTo(expectedItem.removeLinebreak())
     }
 
     private val paramList = """<?xml version="1.0" encoding="utf-8"?>
@@ -113,11 +105,5 @@ internal class TranslatorTest {
                 <div>
         </div>
             </div>
-        </div>""".removeLinebreak()
-
-    private val expectedTranslation = """
-        (n) share
-        stock
-        stump (of tree)
-        (P)""".trimIndent()
+        </div>"""
 }

@@ -11,10 +11,10 @@
     ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>rip.deadcode.intellij-dictionary-plugin</depends>
 
-    <actions>
-        <action id="Jp2En.CompletionRequest" class="rip.deadcode.intellij.jp2en.Jp2EnAction" text="Jp2En" description="Translates Japanese word">
-            <keyboard-shortcut first-keystroke="control shift Q" keymap="$default"/>
-        </action>
-    </actions>
+    <extensions defaultExtensionNs="rip.deadcode.intellij-dictionary-plugin">
+        <dictionary implementation="rip.deadcode.intellij.jp2en.Jp2EnDictionary"/>
+    </extensions>
+
 </idea-plugin>
