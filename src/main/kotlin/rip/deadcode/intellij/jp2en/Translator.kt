@@ -1,7 +1,9 @@
 package rip.deadcode.intellij.jp2en
 
 import com.google.api.client.http.GenericUrl
+import com.google.api.client.http.HttpResponseException
 import com.google.api.client.http.HttpTransport
+import java.io.IOException
 
 object Translator {
 
@@ -15,31 +17,38 @@ object Translator {
             return null
         }
 
-        val itemList = httpTransport.createRequestFactory()
-                .buildGetRequest(GenericUrl(listUrl).also {
-                    it["Dic"] = "EdictJE"
-                    it["Word"] = word
-                    it["Scope"] = "HEADWORD"
-                    it["Match"] = "EXACT"
-                    it["Merge"] = "AND"
-                    it["Prof"] = "XHTML"
-                    it["PageSize"] = 1
-                    it["PageIndex"] = 0
-                })
-                .execute()
-                .parseAsString()
-        val itemId = extractId(itemList) ?: return null
+        try {
+            val itemList = httpTransport.createRequestFactory()
+                    .buildGetRequest(GenericUrl(listUrl).also {
+                        it["Dic"] = "EdictJE"
+                        it["Word"] = word
+                        it["Scope"] = "HEADWORD"
+                        it["Match"] = "EXACT"
+                        it["Merge"] = "AND"
+                        it["Prof"] = "XHTML"
+                        it["PageSize"] = 1
+                        it["PageIndex"] = 0
+                    })
+                    .execute()
+                    .parseAsString()
+            val itemId = extractId(itemList) ?: return null
 
-        val itemResult = httpTransport.createRequestFactory()
-                .buildGetRequest(GenericUrl(itemUrl).also {
-                    it["Dic"] = "EdictJE"
-                    it["Item"] = itemId
-                    it["Loc"] = 0
-                    it["Prof"] = "XHTML"
-                })
-                .execute()
-                .parseAsString()
-        return extractItem(itemResult)
+            val itemResult = httpTransport.createRequestFactory()
+                    .buildGetRequest(GenericUrl(itemUrl).also {
+                        it["Dic"] = "EdictJE"
+                        it["Item"] = itemId
+                        it["Loc"] = 0
+                        it["Prof"] = "XHTML"
+                    })
+                    .execute()
+                    .parseAsString()
+            return extractItem(itemResult)
+
+        } catch (e: HttpResponseException) {
+            return "<p>Unexpected HTTP error.</p>"
+        } catch (e: IOException) {
+            return "<p>Failed to connect. The server seems to be down.</p>"
+        }
     }
 
     // Use regex because XMLObjectParser fails to parse xml response returned
