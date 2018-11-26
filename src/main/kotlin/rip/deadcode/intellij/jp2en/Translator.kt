@@ -73,5 +73,6 @@ object Translator {
         }
     }
 
-    internal fun String.removeLinebreak() = this.replace("\r", "").replace("\n", "").trim()
+    // Due to an odd bug, 'internal' cannot be used.
+    fun String.removeLinebreak() = this.replace("\r", "").replace("\n", "").trim()
 }
