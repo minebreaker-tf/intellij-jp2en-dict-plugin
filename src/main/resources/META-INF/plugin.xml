@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>rip.deadcode.intellij-jp2en-dict-plugin</id>
     <name>Japanese2English Dictionary</name>
-    <version>0.1.3</version>
+    <version>0.1.4</version>
     <vendor email="" url="">minebreaker</vendor>
 
     <description><![CDATA[
