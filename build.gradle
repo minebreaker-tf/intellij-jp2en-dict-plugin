@@ -60,7 +60,6 @@ compileTestKotlin {
 }
 
 intellij {
-    version '2019.1'
 }
 
 patchPluginXml {
